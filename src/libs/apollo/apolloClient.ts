@@ -1,4 +1,8 @@
-import { createHttpLink, HttpLink, NormalizedCacheObject } from "@apollo/client";
+import {
+  createHttpLink,
+  HttpLink,
+  NormalizedCacheObject,
+} from "@apollo/client";
 // import { createHttpLink } from "@apollo/client";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 // import { setContext } from "@apollo/client/link/context";
@@ -40,14 +44,19 @@ const createApolloClient = () => {
     ssrMode: typeof window === "undefined",
     // link: typeof window === "undefined" ? httpLink : authLink.concat(httpLink),
     link: createHttpLink({
-        uri: process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT, // Server URL (must be absolute)
-        credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
-      }),
+      uri: process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT, // Server URL (must be absolute)
+      credentials: "same-origin", // Additional fetch() options like `credentials` or `headers`
+      headers: {
+        "x-hasura-admin-secret": "localadminsecret",
+      },
+    }),
     cache,
   });
 };
 
-export const initializeApollo = (initialState: AppProps["pageProps"] = null) => {
+export const initializeApollo = (
+  initialState: AppProps["pageProps"] = null
+) => {
   const _apolloClient = apolloClient ?? createApolloClient();
 
   // ページにApollo Clientを使用したNext.jsのデータ取得メソッドがある場合、初期状態はここでハイドレーションされます。
@@ -87,7 +96,10 @@ export const initializeApollo = (initialState: AppProps["pageProps"] = null) => 
   return _apolloClient;
 };
 
-export const addApolloState = (client: ApolloClient<NormalizedCacheObject>, pageProps: AppProps["pageProps"]) => {
+export const addApolloState = (
+  client: ApolloClient<NormalizedCacheObject>,
+  pageProps: AppProps["pageProps"]
+) => {
   if (pageProps?.props) {
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
   }
