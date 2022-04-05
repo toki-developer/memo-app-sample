@@ -66,6 +66,9 @@ export type Memo = {
   __typename?: 'memo';
   id: Scalars['Int'];
   memo: Scalars['String'];
+  /** An object relationship */
+  user: User;
+  userId: Scalars['Int'];
 };
 
 /** aggregated selection of "memo" */
@@ -98,10 +101,39 @@ export type Memo_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** order by aggregate values of table "memo" */
+export type Memo_Aggregate_Order_By = {
+  avg?: InputMaybe<Memo_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Memo_Max_Order_By>;
+  min?: InputMaybe<Memo_Min_Order_By>;
+  stddev?: InputMaybe<Memo_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Memo_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Memo_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Memo_Sum_Order_By>;
+  var_pop?: InputMaybe<Memo_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Memo_Var_Samp_Order_By>;
+  variance?: InputMaybe<Memo_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "memo" */
+export type Memo_Arr_Rel_Insert_Input = {
+  data: Array<Memo_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Memo_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Memo_Avg_Fields = {
   __typename?: 'memo_avg_fields';
   id?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "memo" */
+export type Memo_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "memo". All fields are combined with a logical 'AND'. */
@@ -111,6 +143,8 @@ export type Memo_Bool_Exp = {
   _or?: InputMaybe<Array<Memo_Bool_Exp>>;
   id?: InputMaybe<Int_Comparison_Exp>;
   memo?: InputMaybe<String_Comparison_Exp>;
+  user?: InputMaybe<User_Bool_Exp>;
+  userId?: InputMaybe<Int_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "memo" */
@@ -122,12 +156,15 @@ export enum Memo_Constraint {
 /** input type for incrementing numeric columns in table "memo" */
 export type Memo_Inc_Input = {
   id?: InputMaybe<Scalars['Int']>;
+  userId?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "memo" */
 export type Memo_Insert_Input = {
   id?: InputMaybe<Scalars['Int']>;
   memo?: InputMaybe<Scalars['String']>;
+  user?: InputMaybe<User_Obj_Rel_Insert_Input>;
+  userId?: InputMaybe<Scalars['Int']>;
 };
 
 /** aggregate max on columns */
@@ -135,6 +172,14 @@ export type Memo_Max_Fields = {
   __typename?: 'memo_max_fields';
   id?: Maybe<Scalars['Int']>;
   memo?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "memo" */
+export type Memo_Max_Order_By = {
+  id?: InputMaybe<Order_By>;
+  memo?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -142,6 +187,14 @@ export type Memo_Min_Fields = {
   __typename?: 'memo_min_fields';
   id?: Maybe<Scalars['Int']>;
   memo?: Maybe<Scalars['String']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "memo" */
+export type Memo_Min_Order_By = {
+  id?: InputMaybe<Order_By>;
+  memo?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "memo" */
@@ -164,6 +217,8 @@ export type Memo_On_Conflict = {
 export type Memo_Order_By = {
   id?: InputMaybe<Order_By>;
   memo?: InputMaybe<Order_By>;
+  user?: InputMaybe<User_Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: memo */
@@ -176,37 +231,68 @@ export enum Memo_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  Memo = 'memo'
+  Memo = 'memo',
+  /** column name */
+  UserId = 'userId'
 }
 
 /** input type for updating data in table "memo" */
 export type Memo_Set_Input = {
   id?: InputMaybe<Scalars['Int']>;
   memo?: InputMaybe<Scalars['String']>;
+  userId?: InputMaybe<Scalars['Int']>;
 };
 
 /** aggregate stddev on columns */
 export type Memo_Stddev_Fields = {
   __typename?: 'memo_stddev_fields';
   id?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "memo" */
+export type Memo_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
 export type Memo_Stddev_Pop_Fields = {
   __typename?: 'memo_stddev_pop_fields';
   id?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "memo" */
+export type Memo_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
 export type Memo_Stddev_Samp_Fields = {
   __typename?: 'memo_stddev_samp_fields';
   id?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "memo" */
+export type Memo_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** aggregate sum on columns */
 export type Memo_Sum_Fields = {
   __typename?: 'memo_sum_fields';
   id?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "memo" */
+export type Memo_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "memo" */
@@ -214,25 +300,48 @@ export enum Memo_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  Memo = 'memo'
+  Memo = 'memo',
+  /** column name */
+  UserId = 'userId'
 }
 
 /** aggregate var_pop on columns */
 export type Memo_Var_Pop_Fields = {
   __typename?: 'memo_var_pop_fields';
   id?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "memo" */
+export type Memo_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
 export type Memo_Var_Samp_Fields = {
   __typename?: 'memo_var_samp_fields';
   id?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "memo" */
+export type Memo_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** aggregate variance on columns */
 export type Memo_Variance_Fields = {
   __typename?: 'memo_variance_fields';
   id?: Maybe<Scalars['Float']>;
+  userId?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "memo" */
+export type Memo_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
 };
 
 /** mutation root */
@@ -242,14 +351,26 @@ export type Mutation_Root = {
   delete_memo?: Maybe<Memo_Mutation_Response>;
   /** delete single row from the table: "memo" */
   delete_memo_by_pk?: Maybe<Memo>;
+  /** delete data from the table: "user" */
+  delete_user?: Maybe<User_Mutation_Response>;
+  /** delete single row from the table: "user" */
+  delete_user_by_pk?: Maybe<User>;
   /** insert data into the table: "memo" */
   insert_memo?: Maybe<Memo_Mutation_Response>;
   /** insert a single row into the table: "memo" */
   insert_memo_one?: Maybe<Memo>;
+  /** insert data into the table: "user" */
+  insert_user?: Maybe<User_Mutation_Response>;
+  /** insert a single row into the table: "user" */
+  insert_user_one?: Maybe<User>;
   /** update data of the table: "memo" */
   update_memo?: Maybe<Memo_Mutation_Response>;
   /** update single row of the table: "memo" */
   update_memo_by_pk?: Maybe<Memo>;
+  /** update data of the table: "user" */
+  update_user?: Maybe<User_Mutation_Response>;
+  /** update single row of the table: "user" */
+  update_user_by_pk?: Maybe<User>;
 };
 
 
@@ -261,6 +382,18 @@ export type Mutation_RootDelete_MemoArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Memo_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_UserArgs = {
+  where: User_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_User_By_PkArgs = {
   id: Scalars['Int'];
 };
 
@@ -280,6 +413,20 @@ export type Mutation_RootInsert_Memo_OneArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_UserArgs = {
+  objects: Array<User_Insert_Input>;
+  on_conflict?: InputMaybe<User_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_User_OneArgs = {
+  object: User_Insert_Input;
+  on_conflict?: InputMaybe<User_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_MemoArgs = {
   _inc?: InputMaybe<Memo_Inc_Input>;
   _set?: InputMaybe<Memo_Set_Input>;
@@ -292,6 +439,22 @@ export type Mutation_RootUpdate_Memo_By_PkArgs = {
   _inc?: InputMaybe<Memo_Inc_Input>;
   _set?: InputMaybe<Memo_Set_Input>;
   pk_columns: Memo_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_UserArgs = {
+  _inc?: InputMaybe<User_Inc_Input>;
+  _set?: InputMaybe<User_Set_Input>;
+  where: User_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_User_By_PkArgs = {
+  _inc?: InputMaybe<User_Inc_Input>;
+  _set?: InputMaybe<User_Set_Input>;
+  pk_columns: User_Pk_Columns_Input;
 };
 
 /** column ordering options */
@@ -318,6 +481,12 @@ export type Query_Root = {
   memo_aggregate: Memo_Aggregate;
   /** fetch data from the table: "memo" using primary key columns */
   memo_by_pk?: Maybe<Memo>;
+  /** fetch data from the table: "user" */
+  user: Array<User>;
+  /** fetch aggregated fields from the table: "user" */
+  user_aggregate: User_Aggregate;
+  /** fetch data from the table: "user" using primary key columns */
+  user_by_pk?: Maybe<User>;
 };
 
 
@@ -343,6 +512,29 @@ export type Query_RootMemo_By_PkArgs = {
   id: Scalars['Int'];
 };
 
+
+export type Query_RootUserArgs = {
+  distinct_on?: InputMaybe<Array<User_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<User_Order_By>>;
+  where?: InputMaybe<User_Bool_Exp>;
+};
+
+
+export type Query_RootUser_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<User_Order_By>>;
+  where?: InputMaybe<User_Bool_Exp>;
+};
+
+
+export type Query_RootUser_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "memo" */
@@ -351,6 +543,12 @@ export type Subscription_Root = {
   memo_aggregate: Memo_Aggregate;
   /** fetch data from the table: "memo" using primary key columns */
   memo_by_pk?: Maybe<Memo>;
+  /** fetch data from the table: "user" */
+  user: Array<User>;
+  /** fetch aggregated fields from the table: "user" */
+  user_aggregate: User_Aggregate;
+  /** fetch data from the table: "user" using primary key columns */
+  user_by_pk?: Maybe<User>;
 };
 
 
@@ -374,6 +572,250 @@ export type Subscription_RootMemo_AggregateArgs = {
 
 export type Subscription_RootMemo_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Subscription_RootUserArgs = {
+  distinct_on?: InputMaybe<Array<User_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<User_Order_By>>;
+  where?: InputMaybe<User_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<User_Order_By>>;
+  where?: InputMaybe<User_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+/** columns and relationships of "user" */
+export type User = {
+  __typename?: 'user';
+  id: Scalars['Int'];
+  /** An array relationship */
+  memos: Array<Memo>;
+  /** An aggregate relationship */
+  memos_aggregate: Memo_Aggregate;
+  name: Scalars['String'];
+  uid: Scalars['String'];
+};
+
+
+/** columns and relationships of "user" */
+export type UserMemosArgs = {
+  distinct_on?: InputMaybe<Array<Memo_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Memo_Order_By>>;
+  where?: InputMaybe<Memo_Bool_Exp>;
+};
+
+
+/** columns and relationships of "user" */
+export type UserMemos_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Memo_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Memo_Order_By>>;
+  where?: InputMaybe<Memo_Bool_Exp>;
+};
+
+/** aggregated selection of "user" */
+export type User_Aggregate = {
+  __typename?: 'user_aggregate';
+  aggregate?: Maybe<User_Aggregate_Fields>;
+  nodes: Array<User>;
+};
+
+/** aggregate fields of "user" */
+export type User_Aggregate_Fields = {
+  __typename?: 'user_aggregate_fields';
+  avg?: Maybe<User_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<User_Max_Fields>;
+  min?: Maybe<User_Min_Fields>;
+  stddev?: Maybe<User_Stddev_Fields>;
+  stddev_pop?: Maybe<User_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<User_Stddev_Samp_Fields>;
+  sum?: Maybe<User_Sum_Fields>;
+  var_pop?: Maybe<User_Var_Pop_Fields>;
+  var_samp?: Maybe<User_Var_Samp_Fields>;
+  variance?: Maybe<User_Variance_Fields>;
+};
+
+
+/** aggregate fields of "user" */
+export type User_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<User_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type User_Avg_Fields = {
+  __typename?: 'user_avg_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "user". All fields are combined with a logical 'AND'. */
+export type User_Bool_Exp = {
+  _and?: InputMaybe<Array<User_Bool_Exp>>;
+  _not?: InputMaybe<User_Bool_Exp>;
+  _or?: InputMaybe<Array<User_Bool_Exp>>;
+  id?: InputMaybe<Int_Comparison_Exp>;
+  memos?: InputMaybe<Memo_Bool_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  uid?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "user" */
+export enum User_Constraint {
+  /** unique or primary key constraint */
+  UserPkey = 'user_pkey',
+  /** unique or primary key constraint */
+  UserUidKey = 'user_uid_key'
+}
+
+/** input type for incrementing numeric columns in table "user" */
+export type User_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "user" */
+export type User_Insert_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  memos?: InputMaybe<Memo_Arr_Rel_Insert_Input>;
+  name?: InputMaybe<Scalars['String']>;
+  uid?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type User_Max_Fields = {
+  __typename?: 'user_max_fields';
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  uid?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type User_Min_Fields = {
+  __typename?: 'user_min_fields';
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  uid?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "user" */
+export type User_Mutation_Response = {
+  __typename?: 'user_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<User>;
+};
+
+/** input type for inserting object relation for remote table "user" */
+export type User_Obj_Rel_Insert_Input = {
+  data: User_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<User_On_Conflict>;
+};
+
+/** on_conflict condition type for table "user" */
+export type User_On_Conflict = {
+  constraint: User_Constraint;
+  update_columns?: Array<User_Update_Column>;
+  where?: InputMaybe<User_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "user". */
+export type User_Order_By = {
+  id?: InputMaybe<Order_By>;
+  memos_aggregate?: InputMaybe<Memo_Aggregate_Order_By>;
+  name?: InputMaybe<Order_By>;
+  uid?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: user */
+export type User_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** select columns of table "user" */
+export enum User_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Uid = 'uid'
+}
+
+/** input type for updating data in table "user" */
+export type User_Set_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  uid?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type User_Stddev_Fields = {
+  __typename?: 'user_stddev_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type User_Stddev_Pop_Fields = {
+  __typename?: 'user_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type User_Stddev_Samp_Fields = {
+  __typename?: 'user_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type User_Sum_Fields = {
+  __typename?: 'user_sum_fields';
+  id?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "user" */
+export enum User_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Uid = 'uid'
+}
+
+/** aggregate var_pop on columns */
+export type User_Var_Pop_Fields = {
+  __typename?: 'user_var_pop_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type User_Var_Samp_Fields = {
+  __typename?: 'user_var_samp_fields';
+  id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type User_Variance_Fields = {
+  __typename?: 'user_variance_fields';
+  id?: Maybe<Scalars['Float']>;
 };
 
 export type GetMemoTestQueryVariables = Exact<{ [key: string]: never; }>;

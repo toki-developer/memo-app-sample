@@ -2,21 +2,31 @@ import type { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../libs/apollo/apolloClient';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { VFC } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const apolloClient = useApollo(pageProps);
   return (
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID}
       redirectUri={`${process.env.NEXT_PUBLIC_APP_URL}/`}
-      audience={process.env.NEXT_PUBLIC_AUTH0_AUDIENCE}
+      audience={process.env.NEXT_PUBLIC_HASURA_GRAPHQL_ENDPOINT}
     >
-      <ApolloProvider client={apolloClient}>
+      <ApolloContext pageProps={pageProps}>
         <Component {...pageProps} />
-      </ApolloProvider>
+      </ApolloContext>
     </Auth0Provider>
   );
 }
+
+type ApolloContextProos = {
+  pageProps: AppProps["pageProps"];
+  children: React.ReactNode;
+};
+
+const ApolloContext: VFC<ApolloContextProos> = (props) => {
+  const apolloClient = useApollo(props.pageProps);
+  return <ApolloProvider client={apolloClient}>{props.children}</ApolloProvider>;
+};
 
 export default MyApp
