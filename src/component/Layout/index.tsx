@@ -1,4 +1,4 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import Link from "next/link";
 import { useAuth0User } from "../../hooks/useAuth0User";
 
 type Props = {
@@ -18,7 +18,10 @@ export const Layout = ({children}: Props) => {
           <button onClick={handleLogout}>ログアウト</button>
           : <button onClick={loginWithRedirect}>ログイン</button>
         }
+        <Link href="/">TOP</Link>
+        <Link href="/memo">みんなのメモ一覧</Link>
       </div>
+      <hr/>
       <div>
         {children}
       </div>

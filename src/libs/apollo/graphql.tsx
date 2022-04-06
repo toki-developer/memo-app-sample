@@ -818,10 +818,12 @@ export type User_Variance_Fields = {
   id?: Maybe<Scalars['Float']>;
 };
 
-export type GetMemoTestQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetMyMemoListQueryVariables = Exact<{
+  userId: Scalars['Int'];
+}>;
 
 
-export type GetMemoTestQuery = (
+export type GetMyMemoListQuery = (
   { __typename?: 'query_root' }
   & { memo: Array<(
     { __typename?: 'memo' }
@@ -829,10 +831,291 @@ export type GetMemoTestQuery = (
   )> }
 );
 
+export type MemoInfoFragment = (
+  { __typename?: 'memo' }
+  & Pick<Memo, 'id' | 'memo'>
+);
 
-export const GetMemoTestDocument = gql`
-    query getMemoTest {
+export type DeleteMemoMutationVariables = Exact<{
+  memoId: Scalars['Int'];
+}>;
+
+
+export type DeleteMemoMutation = (
+  { __typename?: 'mutation_root' }
+  & { delete_memo_by_pk?: Maybe<(
+    { __typename?: 'memo' }
+    & Pick<Memo, 'id'>
+  )> }
+);
+
+export type GetMemoQueryVariables = Exact<{
+  memoId: Scalars['Int'];
+}>;
+
+
+export type GetMemoQuery = (
+  { __typename?: 'query_root' }
+  & { memo_by_pk?: Maybe<(
+    { __typename?: 'memo' }
+    & Pick<Memo, 'id' | 'memo'>
+  )> }
+);
+
+export type EditMemoMutationVariables = Exact<{
+  memoId: Scalars['Int'];
+  memo: Scalars['String'];
+}>;
+
+
+export type EditMemoMutation = (
+  { __typename?: 'mutation_root' }
+  & { update_memo_by_pk?: Maybe<(
+    { __typename?: 'memo' }
+    & Pick<Memo, 'id' | 'memo'>
+  )> }
+);
+
+export type GetMemoIdListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMemoIdListQuery = (
+  { __typename?: 'query_root' }
+  & { memo: Array<(
+    { __typename?: 'memo' }
+    & Pick<Memo, 'id'>
+  )> }
+);
+
+export type GetMemoListItemQueryVariables = Exact<{
+  memoId: Scalars['Int'];
+}>;
+
+
+export type GetMemoListItemQuery = (
+  { __typename?: 'query_root' }
+  & { memo_by_pk?: Maybe<(
+    { __typename?: 'memo' }
+    & Pick<Memo, 'id' | 'memo'>
+  )> }
+);
+
+export type GetMemoListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMemoListQuery = (
+  { __typename?: 'query_root' }
+  & { memo: Array<(
+    { __typename?: 'memo' }
+    & Pick<Memo, 'id' | 'memo'>
+  )> }
+);
+
+export type MemoListResultFragment = (
+  { __typename?: 'memo' }
+  & Pick<Memo, 'id' | 'memo'>
+);
+
+export type CreateMemoMutationVariables = Exact<{
+  memo: Scalars['String'];
+  userId: Scalars['Int'];
+}>;
+
+
+export type CreateMemoMutation = (
+  { __typename?: 'mutation_root' }
+  & { insert_memo_one?: Maybe<(
+    { __typename?: 'memo' }
+    & Pick<Memo, 'id'>
+  )> }
+);
+
+export const MemoInfoFragmentDoc = gql`
+    fragment MemoInfo on memo {
+  id
+  memo
+}
+    `;
+export const MemoListResultFragmentDoc = gql`
+    fragment MemoListResult on memo {
+  id
+  memo
+}
+    `;
+export const GetMyMemoListDocument = gql`
+    query GetMyMemoList($userId: Int!) {
+  memo(where: {userId: {_eq: $userId}}) {
+    ...MemoInfo
+  }
+}
+    ${MemoInfoFragmentDoc}`;
+
+/**
+ * __useGetMyMemoListQuery__
+ *
+ * To run a query within a React component, call `useGetMyMemoListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMyMemoListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMyMemoListQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetMyMemoListQuery(baseOptions: Apollo.QueryHookOptions<GetMyMemoListQuery, GetMyMemoListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMyMemoListQuery, GetMyMemoListQueryVariables>(GetMyMemoListDocument, options);
+      }
+export function useGetMyMemoListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMyMemoListQuery, GetMyMemoListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMyMemoListQuery, GetMyMemoListQueryVariables>(GetMyMemoListDocument, options);
+        }
+export type GetMyMemoListQueryHookResult = ReturnType<typeof useGetMyMemoListQuery>;
+export type GetMyMemoListLazyQueryHookResult = ReturnType<typeof useGetMyMemoListLazyQuery>;
+export type GetMyMemoListQueryResult = Apollo.QueryResult<GetMyMemoListQuery, GetMyMemoListQueryVariables>;
+export const DeleteMemoDocument = gql`
+    mutation DeleteMemo($memoId: Int!) {
+  delete_memo_by_pk(id: $memoId) {
+    id
+  }
+}
+    `;
+export type DeleteMemoMutationFn = Apollo.MutationFunction<DeleteMemoMutation, DeleteMemoMutationVariables>;
+
+/**
+ * __useDeleteMemoMutation__
+ *
+ * To run a mutation, you first call `useDeleteMemoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteMemoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteMemoMutation, { data, loading, error }] = useDeleteMemoMutation({
+ *   variables: {
+ *      memoId: // value for 'memoId'
+ *   },
+ * });
+ */
+export function useDeleteMemoMutation(baseOptions?: Apollo.MutationHookOptions<DeleteMemoMutation, DeleteMemoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteMemoMutation, DeleteMemoMutationVariables>(DeleteMemoDocument, options);
+      }
+export type DeleteMemoMutationHookResult = ReturnType<typeof useDeleteMemoMutation>;
+export type DeleteMemoMutationResult = Apollo.MutationResult<DeleteMemoMutation>;
+export type DeleteMemoMutationOptions = Apollo.BaseMutationOptions<DeleteMemoMutation, DeleteMemoMutationVariables>;
+export const GetMemoDocument = gql`
+    query GetMemo($memoId: Int!) {
+  memo_by_pk(id: $memoId) {
+    ...MemoInfo
+  }
+}
+    ${MemoInfoFragmentDoc}`;
+
+/**
+ * __useGetMemoQuery__
+ *
+ * To run a query within a React component, call `useGetMemoQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMemoQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMemoQuery({
+ *   variables: {
+ *      memoId: // value for 'memoId'
+ *   },
+ * });
+ */
+export function useGetMemoQuery(baseOptions: Apollo.QueryHookOptions<GetMemoQuery, GetMemoQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMemoQuery, GetMemoQueryVariables>(GetMemoDocument, options);
+      }
+export function useGetMemoLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMemoQuery, GetMemoQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMemoQuery, GetMemoQueryVariables>(GetMemoDocument, options);
+        }
+export type GetMemoQueryHookResult = ReturnType<typeof useGetMemoQuery>;
+export type GetMemoLazyQueryHookResult = ReturnType<typeof useGetMemoLazyQuery>;
+export type GetMemoQueryResult = Apollo.QueryResult<GetMemoQuery, GetMemoQueryVariables>;
+export const EditMemoDocument = gql`
+    mutation EditMemo($memoId: Int!, $memo: String!) {
+  update_memo_by_pk(pk_columns: {id: $memoId}, _set: {memo: $memo}) {
+    ...MemoInfo
+  }
+}
+    ${MemoInfoFragmentDoc}`;
+export type EditMemoMutationFn = Apollo.MutationFunction<EditMemoMutation, EditMemoMutationVariables>;
+
+/**
+ * __useEditMemoMutation__
+ *
+ * To run a mutation, you first call `useEditMemoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditMemoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editMemoMutation, { data, loading, error }] = useEditMemoMutation({
+ *   variables: {
+ *      memoId: // value for 'memoId'
+ *      memo: // value for 'memo'
+ *   },
+ * });
+ */
+export function useEditMemoMutation(baseOptions?: Apollo.MutationHookOptions<EditMemoMutation, EditMemoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<EditMemoMutation, EditMemoMutationVariables>(EditMemoDocument, options);
+      }
+export type EditMemoMutationHookResult = ReturnType<typeof useEditMemoMutation>;
+export type EditMemoMutationResult = Apollo.MutationResult<EditMemoMutation>;
+export type EditMemoMutationOptions = Apollo.BaseMutationOptions<EditMemoMutation, EditMemoMutationVariables>;
+export const GetMemoIdListDocument = gql`
+    query GetMemoIdList {
   memo {
+    id
+  }
+}
+    `;
+
+/**
+ * __useGetMemoIdListQuery__
+ *
+ * To run a query within a React component, call `useGetMemoIdListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMemoIdListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMemoIdListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMemoIdListQuery(baseOptions?: Apollo.QueryHookOptions<GetMemoIdListQuery, GetMemoIdListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMemoIdListQuery, GetMemoIdListQueryVariables>(GetMemoIdListDocument, options);
+      }
+export function useGetMemoIdListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMemoIdListQuery, GetMemoIdListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMemoIdListQuery, GetMemoIdListQueryVariables>(GetMemoIdListDocument, options);
+        }
+export type GetMemoIdListQueryHookResult = ReturnType<typeof useGetMemoIdListQuery>;
+export type GetMemoIdListLazyQueryHookResult = ReturnType<typeof useGetMemoIdListLazyQuery>;
+export type GetMemoIdListQueryResult = Apollo.QueryResult<GetMemoIdListQuery, GetMemoIdListQueryVariables>;
+export const GetMemoListItemDocument = gql`
+    query GetMemoListItem($memoId: Int!) {
+  memo_by_pk(id: $memoId) {
     id
     memo
   }
@@ -840,28 +1123,97 @@ export const GetMemoTestDocument = gql`
     `;
 
 /**
- * __useGetMemoTestQuery__
+ * __useGetMemoListItemQuery__
  *
- * To run a query within a React component, call `useGetMemoTestQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMemoTestQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMemoListItemQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMemoListItemQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetMemoTestQuery({
+ * const { data, loading, error } = useGetMemoListItemQuery({
+ *   variables: {
+ *      memoId: // value for 'memoId'
+ *   },
+ * });
+ */
+export function useGetMemoListItemQuery(baseOptions: Apollo.QueryHookOptions<GetMemoListItemQuery, GetMemoListItemQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMemoListItemQuery, GetMemoListItemQueryVariables>(GetMemoListItemDocument, options);
+      }
+export function useGetMemoListItemLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMemoListItemQuery, GetMemoListItemQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMemoListItemQuery, GetMemoListItemQueryVariables>(GetMemoListItemDocument, options);
+        }
+export type GetMemoListItemQueryHookResult = ReturnType<typeof useGetMemoListItemQuery>;
+export type GetMemoListItemLazyQueryHookResult = ReturnType<typeof useGetMemoListItemLazyQuery>;
+export type GetMemoListItemQueryResult = Apollo.QueryResult<GetMemoListItemQuery, GetMemoListItemQueryVariables>;
+export const GetMemoListDocument = gql`
+    query GetMemoList {
+  memo {
+    ...MemoListResult
+  }
+}
+    ${MemoListResultFragmentDoc}`;
+
+/**
+ * __useGetMemoListQuery__
+ *
+ * To run a query within a React component, call `useGetMemoListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMemoListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMemoListQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetMemoTestQuery(baseOptions?: Apollo.QueryHookOptions<GetMemoTestQuery, GetMemoTestQueryVariables>) {
+export function useGetMemoListQuery(baseOptions?: Apollo.QueryHookOptions<GetMemoListQuery, GetMemoListQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMemoTestQuery, GetMemoTestQueryVariables>(GetMemoTestDocument, options);
+        return Apollo.useQuery<GetMemoListQuery, GetMemoListQueryVariables>(GetMemoListDocument, options);
       }
-export function useGetMemoTestLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMemoTestQuery, GetMemoTestQueryVariables>) {
+export function useGetMemoListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMemoListQuery, GetMemoListQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMemoTestQuery, GetMemoTestQueryVariables>(GetMemoTestDocument, options);
+          return Apollo.useLazyQuery<GetMemoListQuery, GetMemoListQueryVariables>(GetMemoListDocument, options);
         }
-export type GetMemoTestQueryHookResult = ReturnType<typeof useGetMemoTestQuery>;
-export type GetMemoTestLazyQueryHookResult = ReturnType<typeof useGetMemoTestLazyQuery>;
-export type GetMemoTestQueryResult = Apollo.QueryResult<GetMemoTestQuery, GetMemoTestQueryVariables>;
+export type GetMemoListQueryHookResult = ReturnType<typeof useGetMemoListQuery>;
+export type GetMemoListLazyQueryHookResult = ReturnType<typeof useGetMemoListLazyQuery>;
+export type GetMemoListQueryResult = Apollo.QueryResult<GetMemoListQuery, GetMemoListQueryVariables>;
+export const CreateMemoDocument = gql`
+    mutation CreateMemo($memo: String!, $userId: Int!) {
+  insert_memo_one(object: {memo: $memo, userId: $userId}) {
+    id
+  }
+}
+    `;
+export type CreateMemoMutationFn = Apollo.MutationFunction<CreateMemoMutation, CreateMemoMutationVariables>;
+
+/**
+ * __useCreateMemoMutation__
+ *
+ * To run a mutation, you first call `useCreateMemoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateMemoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createMemoMutation, { data, loading, error }] = useCreateMemoMutation({
+ *   variables: {
+ *      memo: // value for 'memo'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useCreateMemoMutation(baseOptions?: Apollo.MutationHookOptions<CreateMemoMutation, CreateMemoMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateMemoMutation, CreateMemoMutationVariables>(CreateMemoDocument, options);
+      }
+export type CreateMemoMutationHookResult = ReturnType<typeof useCreateMemoMutation>;
+export type CreateMemoMutationResult = Apollo.MutationResult<CreateMemoMutation>;
+export type CreateMemoMutationOptions = Apollo.BaseMutationOptions<CreateMemoMutation, CreateMemoMutationVariables>;
