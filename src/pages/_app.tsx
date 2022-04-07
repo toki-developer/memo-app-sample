@@ -3,6 +3,16 @@ import { ApolloProvider } from '@apollo/client';
 import { useApollo } from '../libs/apollo/apolloClient';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { VFC } from 'react';
+import { AbortController } from "abort-controller";
+import fetch, { Headers, Request, Response } from "node-fetch";
+
+Object.assign(globalThis, {
+  fetch,
+  Headers,
+  Request,
+  Response,
+  AbortController,
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
