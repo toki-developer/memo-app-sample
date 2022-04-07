@@ -2,7 +2,6 @@ import { gql } from '@apollo/client';
 import type { NextPage } from 'next'
 import Link from 'next/link';
 import { Layout } from '../../component/Layout';
-import { useRequireLogin } from '../../hooks/useRequireLogin';
 import { MemoListResultFragment, useGetMemoListQuery } from '../../libs/apollo/graphql';
 
 const MemoListItem = ({id, memo}: MemoListResultFragment) => {
@@ -16,7 +15,6 @@ const MemoListItem = ({id, memo}: MemoListResultFragment) => {
 }
 
 const MemoListPage: NextPage = () => {
-  useRequireLogin()
   const { data } = useGetMemoListQuery()
 
   return (

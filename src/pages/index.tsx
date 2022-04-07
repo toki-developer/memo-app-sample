@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import { useRouter } from 'next/router';
 import { Layout } from '../component/Layout';
 import { useAuth0User } from '../hooks/useAuth0User';
+import { useRequireLogin } from '../hooks/useRequireLogin';
 import { MemoInfoFragment, useDeleteMemoMutation, useGetMyMemoListQuery } from '../libs/apollo/graphql';
 
 const MemoItem = ({id, memo}: MemoInfoFragment) => {
@@ -30,6 +31,7 @@ const MemoItem = ({id, memo}: MemoInfoFragment) => {
 }
 
 const Home: NextPage = () => {
+  useRequireLogin()
   const router = useRouter()
   const { userId } = useAuth0User()
   const { data } = useGetMyMemoListQuery({variables: {userId}})
